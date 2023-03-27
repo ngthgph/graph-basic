@@ -21,8 +21,8 @@ public class Graph {
     }
 
     void disAdj() {
+        System.out.println("The adjacency matrix: ");
         for(int i = 0; i < n; i++) {
-            System.out.println("The adjacency matrix: ");
             System.out.println();
             for(int j = 0; j < n; j++)
                 System.out.printf("%5d", a[i][j]);
@@ -30,25 +30,55 @@ public class Graph {
     }
 
     void visit(int i) {
-        System.out.println(i + " ");
+        System.out.print(i + " ");
     }
 
     // Hàm duyệt theo BFS bắt đầu tại đỉnh k bằng cách sử dụng MyQueue, mỗi khi lấy 1 đỉnh ra khỏi  queue thì hiển thị luôn (duyệt) đỉnh đó ra màn hình
     void breadth(int k) {
         MyQueue q = new MyQueue();
+        boolean[] explored = new boolean[n];
 
+        explored[k] = true;
+        q.enqueue(k);
 
+        while (!q.isEmpty()) {
+            int current = q.dequeue();
+            for(int i = 0; i < n; i++)
+                if(!explored[i] && a[current][i] == 1) {
+                    visit(i);
+                    explored[i] = true;
+                    q.enqueue(i);
+                }
+        }
+        System.out.println();
     }
 
     // Hàm kiểm tra tính liên thông của đồ thị
     boolean isConnected() {
+        MyQueue q = new MyQueue();
+        boolean[] explored = new boolean[n];
+        int count = 1;
 
-        return true;
+        explored[0] = true;
+        q.enqueue(0);
+
+        while (!q.isEmpty()) {
+            int current = q.dequeue();
+            for(int i = 0; i < n; i++)
+                if(!explored[i] && a[current][i] == 1) {
+                    count++;
+                    explored[i] = true;
+                    q.enqueue(i);
+                }
+        }
+        return (n == count);
     }
 
     // Hàm tính bậc của đỉnh k
     int degree(int k) {
-
-        return 0;
+        int degree = 0;
+        for(int i : a[k])
+            degree += i;
+        return degree;
     }
 }
