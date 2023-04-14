@@ -1,5 +1,3 @@
-// G:\My Drive\LEARNING\FUNiX\6_CSD201x_02-A_VN-Algorithm\Exercises
-
 import java.util.Scanner;
 
 public class Main {
